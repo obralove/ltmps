@@ -96,7 +96,7 @@
                     <a href="{{ route('login') }}" class="btn btn-primary">Log in</a>
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
+                        <!-- <a href="{{ route('register') }}" class="btn btn-secondary">Register</a> -->
                     @endif
                 @endauth
             @endif

@@ -42,7 +42,30 @@
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-stethoscope"></i></span>
-                    <input type="text" class="form-control @error('treatment') is-invalid @enderror" id="treatment" name="treatment" placeholder="Enter Treatment" value="{{ old('treatment') }}" required>
+                    <input type="text" class="form-control @error('veterinarian') is-invalid @enderror" id="veterinarian" name="veterinarian" placeholder="Enter Veterinarian" value="{{ old('veterinarian') }}" required>
+                </div>
+                @error('veterinarian')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-bandage"></i></span>
+                    <!-- <input type="text" class="form-control @error('treatment') is-invalid @enderror" id="treatment" name="treatment" placeholder="Enter Treatment" value="{{ old('treatment') }}" required>
+                      -->
+                        <select class="treatment-dropdown" style="width: 90%;" class="form-control @error('treatment') is-invalid @enderror" name="treatment[]" multiple="multiple">
+                            <option value="Valbazen">Valbazen   </option>
+                            <option value="Albendazole">Albendazole</option>
+                            <option value="Bovine">Bovine</option>
+                            <option value="Antibiotic intramammary tubes">Antibiotic intramammary tubes</option>
+                            <option value="Vitamin B">Vitamin B</option>
+                            <option value="Aminoglycosides">Aminoglycosides</option>
+                            <option value="Lincosamides">Lincosamides</option>
+                            <option value="Multivitamins">Multivitamins</option>
+                        </select>
                 </div>
                 @error('treatment')
                     <span class="invalid-feedback" role="alert">
@@ -68,6 +91,18 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $('.treatment-dropdown').select2({placeholder: "Select a treatment",
+            allowClear: true});
+    });
+</script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 

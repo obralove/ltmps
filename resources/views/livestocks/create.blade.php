@@ -18,10 +18,10 @@
         <div class="w-50" style="background-color: #e0f7fa; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
             <form action="{{ route('livestocks.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
+                <div class="mb-3 d-none">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" name="owner" class="form-control" id="owner" placeholder="Enter Owner" value="{{ old('owner') }}" required>
+                        <input type="text" name="owner" class="form-control" id="owner" placeholder="Enter Owner" value="{{ auth()->user()->name }}" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -45,7 +45,7 @@
                 <div class="mb-3">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-kiwi-bird"></i></span>
-                        <input type="text" name="species" class="form-control" id="species" placeholder="Enter Livestock" value="{{ old('species') }}" required>
+                        <input type="text" name="livestock" class="form-control" id="livestock" placeholder="Enter Livestock" value="{{ old('livestock') }}" required>
                     </div>
                 </div>
                 <div class="mb-3">

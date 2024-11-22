@@ -16,7 +16,8 @@ class Medical extends Model
         'date',
         'treatment',
         'note',
-        'user_id'
+        'user_id',
+        'veterinarian'
     ];
 
     

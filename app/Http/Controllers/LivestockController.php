@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LiveStockCreateRequest;
 use App\Models\Livestock;
 use Illuminate\Http\Request;
 use App\Models\Medical;
@@ -81,18 +82,8 @@ class LivestockController extends Controller
 
 
 
-    public function store(Request $request)
+    public function store(LiveStockCreateRequest $request)
     {
-        
-        $validatedData = $request->validate([
-            'owner' => 'required|string',
-            'veterinarian' => 'required|string',
-            'name' => 'required|string',
-            'date_of_birth' => 'required|date',
-            'species' => 'required|string',
-            'picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-
        
         do {
             $tagNumber = 'TAG-' . strtoupper(Str::random(8));
@@ -103,22 +94,22 @@ class LivestockController extends Controller
 
         
         $livestock = Livestock::create([
-            'owner' => $validatedData['owner'],
-            'veterinarian' => $validatedData['veterinarian'],
-            'name' => $validatedData['name'],
-            'date_of_birth' => $validatedData['date_of_birth'],
-            'species' => $validatedData['species'],
+            'owner' => $request['owner'],
+            'veterinarian' => $request['veterinarian'],
+            'name' => $request['name'],
+            'date_of_birth' => $request['date_of_birth'],
+            'species' => $request['species'],
             'tag' => $tagNumber,
             'picture' => $picturePath,
         ]);
 
        
         \DB::connection('mysql_backup')->table('livestocks')->insert([
-            'owner' => $validatedData['owner'],
-            'veterinarian' => $validatedData['veterinarian'],
-            'name' => $validatedData['name'],
-            'date_of_birth' => $validatedData['date_of_birth'],
-            'species' => $validatedData['species'],
+            'owner' => $request['owner'],
+            'veterinarian' => $request['veterinarian'],
+            'name' => $request['name'],
+            'date_of_birth' => $request['date_of_birth'],
+            'species' => $request['species'],
             'tag' => $tagNumber,
             'picture' => $picturePath,
             'created_at' => now(),

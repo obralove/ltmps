@@ -9,7 +9,7 @@
         
         <div class="col-md-6">
             <div class="data-background p-4">
-                <div class="mb-3 position-relative">
+                <div class="mb-3 position-relative d-none">
                     <span class="input-icon"><i class="fas fa-user"></i></span>
                     <input type="text" class="form-control" value="{{ $livestock->owner }}" placeholder="Owner" readonly>
                 </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3 position-relative">
                     <span class="input-icon"><i class="fas fa-calendar-alt"></i></span>
-                    <input type="date" class="form-control" value="{{ $livestock->date_of_birth }}" placeholder="Date of Birth" readonly>
+                    <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($livestock->date_of_birth)->format('M d, Y') }}" placeholder="Date of Birth" readonly>
                 </div>
                 <div class="mb-3 position-relative">
                     <span class="input-icon"><i class="fas fa-paw"></i></span>
@@ -202,6 +202,7 @@
     <thead class="table-dark">
         <tr>
             <th>Date</th>
+            <th>Veterinarian</th>
             <th>Treatment</th>
             <th>Notes</th>
           
@@ -210,7 +211,8 @@
     <tbody>
         @foreach ($medicals as $medical)
         <tr class="table-info"> 
-            <td>{{ $medical->date }}</td>
+            <td>{{ \Carbon\Carbon::parse($medical->date)->format('M d, Y') }}</td>
+            <td>{{ $medical->veterinarian }}</td>
             <td>{{ $medical->treatment }}</td>
             <td>{{ $medical->note }}</td>
             <!-- <td>
@@ -257,6 +259,7 @@
     <thead class="table-dark">
         <tr>
             <th>Date</th>
+            <th>Veterinarian</th>
             <th>Vaccination</th>
             <th>Booster</th>
             <!-- <th>Action</th> -->
@@ -265,7 +268,8 @@
     <tbody>
         @foreach ($vaccinations as $vaccination)
         <tr class="table-info">
-            <td>{{ $vaccination->date }}</td>
+            <td>{{ \Carbon\Carbon::parse($vaccination->date)->format('M d, Y') }}</td>
+            <td>{{ $vaccination->veterinarian }}</td>
             <td>{{ $vaccination->vaccination }}</td>
             <td>{{ $vaccination->booster }}</td>
             
