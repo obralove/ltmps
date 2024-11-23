@@ -14,7 +14,8 @@ class Vaccination extends Model
         'date',
         'vaccination',
         'booster',
-         'user_id'
+         'user_id',
+         'veterinarian'
     ];
 
     

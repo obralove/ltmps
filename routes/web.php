@@ -59,7 +59,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('guest');
+Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('guest')->name('password.forgot.view');
 Route::post('/forgot-password', [AuthController::class, 'sendEmailPassword'])->middleware('guest')->name('password.forgot');
 
 Route::get('/livestock/{id}', [MedicalRecordController::class, 'index'])->name('livestocks');

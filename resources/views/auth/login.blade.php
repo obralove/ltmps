@@ -34,6 +34,9 @@
                         <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
                     </div>
                 </div>
+                <div class="mb-3 d-flex align-items-center justify-content-end">
+                    <a href="{{ route('password.forgot.view') }}"  class="" style="font-size: 10pt;">Forgot Password?</a>
+                </div>
 
                 <button type="submit" class="btn custom-btn-color w-100">Login</button>
             </form>

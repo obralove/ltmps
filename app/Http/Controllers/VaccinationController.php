@@ -46,17 +46,25 @@ class VaccinationController extends Controller
 public function store(Request $request, Vaccination $vaccinations)
 {
     $validatedData = $request->validate([
-        'date' => 'required|string',
-        'vaccination' => 'required|string',
+        'date' => ['required', 'string', function ($attribute, $value, $fail) {
+            if (Vaccination::where('date', $value)->exists() || Medical::where('date', $value)->exists()) {
+                $fail('The date is not available.');
+            }
+        },],
+        'vaccination' => ['required', 'array'],
         'booster' => 'required|string',
         'livestock_id' => 'required|exists:livestocks,id',
+        'veterinarian' => 'required|string',
     ]);
+
+    $validatedData['vaccination'] = implode(', ', $request['vaccination']);
 
  
     $vaccinations->date = $validatedData['date'];
     $vaccinations->vaccination = $validatedData['vaccination'];
     $vaccinations->booster = $validatedData['booster'];
     $vaccinations->livestock_id = $validatedData['livestock_id'];
+    $vaccinations->veterinarian = $validatedData['veterinarian'];
     $vaccinations->user_id = auth()->user()->id;
     $vaccinations->save();
 
@@ -88,6 +96,7 @@ public function store(Request $request, Vaccination $vaccinations)
         'vaccination' => $validatedData['vaccination'],
         'booster' => $validatedData['booster'],
         'livestock_id' => $validatedData['livestock_id'],
+        'veterinarian' => $validatedData['veterinarian'],
         'created_at' => now(),
         'updated_at' => now(),
     ]);

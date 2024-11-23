@@ -40,13 +40,19 @@ class MedicalRecordController extends Controller
 public function store(Request $request, Medical $medicals)
 {
     $validatedData = $request->validate([
-        'date' => 'required|string',
-        'treatment' => 'required|string',
+        'date' => ['required', 'string', function ($attribute, $value, $fail) {
+            if (Vaccination::where('date', $value)->exists() || Medical::where('date', $value)->exists()) {
+                $fail('The date is not available.');
+            }
+        },],
+        'treatment' => ['required', 'array'],
+        'veterinarian' => 'required|string',
         'note' => 'required|string',
         'livestock_id' => 'required|exists:livestocks,id',
     ]);
 
     $validatedData['user_id'] = auth()->user()->id;
+    $validatedData['treatment'] = implode(', ', $request['treatment']);
 
    
     $medical = Medical::create($validatedData);
@@ -77,6 +83,7 @@ public function store(Request $request, Medical $medicals)
     \DB::connection('mysql_backup')->table('medicals')->insert([
         'date' => $validatedData['date'],
         'treatment' => $validatedData['treatment'],
+        'veterinarian' => $validatedData['veterinarian'],
         'note' => $validatedData['note'],
         'livestock_id' => $validatedData['livestock_id'],
         'created_at' => now(),

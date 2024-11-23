@@ -43,7 +43,7 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Owner</th>
+                <!-- <th>Owner</th> -->
                 <th>Veterinarian</th>
                 <th>Name</th>
                 <th>Date of Birth</th>
@@ -57,7 +57,7 @@
             @foreach($livestocks as $livestock)
                 <tr>
                     <td>{{ $livestock->id }}</td>
-                    <td>{{ $livestock->owner }}</td>
+                    {{-- <td>{{ $livestock->owner }}</td> --}}
                     <td>{{ $livestock->veterinarian }}</td>
                     <td>{{ $livestock->name }}</td>
                     <td>{{ $livestock->date_of_birth }}</td>

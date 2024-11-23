@@ -40,8 +40,29 @@
 
             <div class="mb-3">
                 <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-stethoscope"></i></span>
+                    <input type="text" class="form-control @error('veterinarian') is-invalid @enderror" id="veterinarian" name="veterinarian" placeholder="Enter Veterinarian" value="{{ old('veterinarian') }}" required>
+                </div>
+                @error('veterinarian')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-syringe"></i></span>
-                    <input type="text" class="form-control @error('vaccination') is-invalid @enderror" id="vaccination" name="vaccination" placeholder="Enter Vaccination" value="{{ old('vaccination') }}" required>
+                    <!-- <input type="text" class="form-control @error('vaccination') is-invalid @enderror" id="vaccination" name="vaccination" placeholder="Enter Vaccination" value="{{ old('vaccination') }}" required> -->
+                    <select class="vaccination-dropdown" style="width: 90%;" class="form-control @error('vaccination') is-invalid @enderror" name="vaccination[]" multiple="multiple">
+                        <option value="ATTENUATED VACCINE">ATTENUATED VACCINE</option>
+                        <option value="INACTIVATED VACCINE">INACTIVATED VACCINE</option>
+                        <option value="TOXOID VACCINE">TOXOID VACCINE</option>
+                        <option value="SUBUNIT VACCINE">SUBUNIT VACCINE</option>
+                        <option value="CONJUGATE VACCINE">CONJUGATE VACCINE</option>
+                        <option value="HETEROLOGOUS VACCINE">HETEROLOGOUS VACCINE</option>
+                        <option value="RNA VACCINE">RNA VACCINE</option>
+                    </select>
                 </div>
                 @error('vaccination')
                     <span class="invalid-feedback" role="alert">
@@ -66,6 +87,19 @@
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $('.vaccination-dropdown').select2({placeholder: "Select a vaccination",
+            allowClear: true});
+    });
+</script>
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
